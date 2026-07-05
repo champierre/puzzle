@@ -210,6 +210,43 @@
 </figure>
 </div>
 
+<h3>正方形版・ひし形版も同じ仕組み</h3>
+<p>
+<strong>正方形版</strong>は方眼格子を使います。格子上に描ける正方形の面積は {p²+q²} の値
+（1, 2, 4, 5, 8, 9, 10, …）で、ここでは <strong>49 と 50</strong> が連続ペア。
+ピースだけで一辺 7a（=49マス）、小正方形を足すと一辺 √50a ≈ 7.07a（=50マス、内部の格子が
+8.13°傾く）が厳密に完成します。48 は2つの平方数の和で書けないため (48,49) は使えず、
+三角形版とはペアの向きが逆（小ピースを足した方が大きい 50）になるのが面白いところ。
+</p>
+
+<div class="figrow">
+<figure class="fig">
+  <div id="fig-sq50"></div>
+  <figcaption>【正方形版】左：一辺 7a ＝ 49マス。右：一辺 √50a ≈ 7.07a ＝ 50マス（格子が 8.13° 傾く）。相似比 √(49/50) ≈ 0.99。</figcaption>
+</figure>
+<figure class="fig">
+  <div id="fig-sq-overlay"></div>
+  <figcaption>2つの完成形の重ね合わせ。差 約1%。</figcaption>
+</figure>
+</div>
+
+<p>
+<strong>ひし形版</strong>（60°のひし形）は正三角形と同じ三角格子なので、同じ (48, 49) ペアを使います。
+ひし形は1辺 s あたり単位三角形 2s² 個ぶんなので、ピースだけで一辺 4√3a ≈ 6.93a（=96単位、
+格子が30°傾く）、小ひし形（=2単位）を足すと一辺 7a（=98単位）が厳密に完成します。
+</p>
+
+<div class="figrow">
+<figure class="fig">
+  <div id="fig-rh48"></div>
+  <figcaption>【ひし形版】左：一辺 7a ＝ 98単位。右：一辺 4√3a ≈ 6.93a ＝ 96単位（格子が30°傾く）。差の2単位＝小ひし形1個分。</figcaption>
+</figure>
+<figure class="fig">
+  <div id="fig-rh-overlay"></div>
+  <figcaption>2つの完成形の重ね合わせ。相似比 √(48/49) ≈ 0.9897。</figcaption>
+</figure>
+</div>
+
 <h3>新作④ 正方形版 — ペリガル分割（合同4ピース＋小正方形、最少構成）</h3>
 <p>
 ピタゴラスの定理の有名な証明図「ペリガルの分割」（1873）がそのままこのタイプのパズルになります。
@@ -513,6 +550,78 @@
     document.getElementById(elId).innerHTML = svg.close();
   }
 
+  // fig: square 7x7 (49 cells) vs sqrt50 (50 cells, grid tilted 8.13deg)
+  function drawSq50(elId, pxw){
+    const svg = svgOpen(-0.6, -1.7, 17.0, 9.5, pxw);
+    // left: 7x7 with unit grid
+    poly(svg, [[0,0],[7,0],[7,7],[0,7]], "#fdf6ec", "#1e2430", 0.06);
+    for (let i = 1; i <= 6; i++){ seg(svg, [i,0],[i,7], "#b08a5a", 0.02); seg(svg, [0,i],[7,i], "#b08a5a", 0.02); }
+    txt(svg, [3.5, -0.8], "一辺 7a ＝ 49マス", 0.45, "#1e2430");
+    // right: lattice-frame square (0,0),(7,1),(6,8),(-1,7); grid = integer lines; rotate -phi
+    const Q = [[0,0],[7,1],[6,8],[-1,7]];
+    const off = [9.6, 0];
+    const place = p => tr(rot(p, -PHI), off);
+    poly(svg, Q.map(place), "#eef3fb", "#1e2430", 0.06);
+    const gsegs = [];
+    for (let i = -1; i <= 7; i++){ const s = clipLine([i,0],[0,1],Q); if (s) gsegs.push(s); }
+    for (let j = 0; j <= 8; j++){ const s = clipLine([0,j],[1,0],Q); if (s) gsegs.push(s); }
+    gsegs.forEach(s => seg(svg, place(s[0]), place(s[1]), "#5a7ab0", 0.02));
+    txt(svg, [9.6+Math.sqrt(50)/2, -0.8], "一辺 √50a ≈ 7.07a ＝ 50マス", 0.45, "#1e2430");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  function drawSqOverlay(elId, pxw){
+    const svg = svgOpen(-4.3, -4.9, 8.6, 9.0, pxw);
+    const S7 = [[0,0],[7,0],[7,7],[0,7]].map(p => tr(p, [-3.5,-3.5]));
+    const S50 = [[0,0],[7,1],[6,8],[-1,7]].map(p => rot(p, -PHI)).map(p => tr(p, [-Math.sqrt(50)/2, -Math.sqrt(50)/2]));
+    poly(svg, S7, "none", "#b5452a", 0.05);
+    poly(svg, S50, "none", "#2a5ab5", 0.05);
+    txt(svg, [0, -4.15], "─ 7a（ピースのみ）  ─ √50a（ピース＋小正方形）", 0.34, "#5a6472");
+    txt(svg, [0, -4.6], "相似比 √(49/50) ≈ 0.9899（差 約1%）", 0.34, "#5a6472");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  // fig: rhombus 60deg, side 7 (98 units) vs side 4sqrt3 (96 units, grid tilted 30deg)
+  const RH7 = [[0,0],[7,0],[10.5,7*H],[3.5,7*H]];
+  function drawRh48(elId, pxw){
+    const svg = svgOpen(-0.6, -1.7, 23.4, 8.2, pxw);
+    poly(svg, RH7, "#fdf6ec", "#1e2430", 0.06);
+    const rsegs = [];
+    for (let j = 1; j <= 6; j++){ const s = clipLine([0, j*H],[1,0],RH7); if (s) rsegs.push(s); }
+    for (let i = 1; i <= 6; i++){ const s = clipLine([i,0],[0.5,H],RH7); if (s) rsegs.push(s); }
+    for (let i = 1; i <= 13; i++){ const s = clipLine([i,0],[-0.5,H],RH7); if (s) rsegs.push(s); }
+    rsegs.forEach(s => seg(svg, s[0], s[1], "#b08a5a", 0.02));
+    txt(svg, [5.25, -0.8], "一辺 7a ＝ 98単位", 0.45, "#1e2430");
+    // right: lattice frame rhombus sides A=(6,2sqrt3), B=(0,4sqrt3); rotate -30deg
+    const A = [6, 2*SQ3], B = [0, 4*SQ3];
+    const RL = [[0,0],[A[0],A[1]],[A[0]+B[0],A[1]+B[1]],[B[0],B[1]]];
+    const off = [12.2, 0], ang = -Math.PI/6;
+    const place = p => tr(rot(p, ang), off);
+    poly(svg, RL.map(place), "#eef3fb", "#1e2430", 0.06);
+    const gs = [];
+    for (let j = 1; j <= 11; j++){ const s = clipLine([0, j*H],[1,0],RL); if (s) gs.push(s); }
+    for (let i = -8; i <= 8; i++){ const s = clipLine([i,0],[0.5,H],RL); if (s) gs.push(s); }
+    for (let i = -2; i <= 14; i++){ const s = clipLine([i,0],[-0.5,H],RL); if (s) gs.push(s); }
+    gs.forEach(s => seg(svg, place(s[0]), place(s[1]), "#5a7ab0", 0.02));
+    txt(svg, [12.2+5.196, -0.8], "一辺 4√3a ≈ 6.93a ＝ 96単位", 0.45, "#1e2430");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  function drawRhOverlay(elId, pxw){
+    const svg = svgOpen(-5.6, -3.4, 11.2, 7.5, pxw);
+    const R7 = RH7.map(p => tr(p, [-5.25, -3.5*H]));
+    const ang = -Math.PI/6;
+    const A = [6, 2*SQ3], B = [0, 4*SQ3];
+    const RL = [[0,0],[A[0],A[1]],[A[0]+B[0],A[1]+B[1]],[B[0],B[1]]].map(p => rot(p, ang));
+    const cen = [(RL[0][0]+RL[2][0])/2, (RL[0][1]+RL[2][1])/2];
+    const R48 = RL.map(p => tr(p, [-cen[0], -cen[1]]));
+    poly(svg, R7, "none", "#b5452a", 0.05);
+    poly(svg, R48, "none", "#2a5ab5", 0.05);
+    txt(svg, [0, -2.75], "─ 7a（ピース＋小ひし形）  ─ 4√3a（ピースのみ）", 0.34, "#5a6472");
+    txt(svg, [0, -3.15], "相似比 √(48/49) ≈ 0.9897（差 約1%）", 0.34, "#5a6472");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
   // Perigal data (verified): square a=1,b=7
   const SQ_PIECES = [
     [[3.5,0.5],[3.5,3.5],[-0.5,3.5],[0,0]],
@@ -557,6 +666,10 @@
 
   drawTri48("fig-tri48", 640);
   drawTriOverlay("fig-tri-overlay", 340);
+  drawSq50("fig-sq50", 640);
+  drawSqOverlay("fig-sq-overlay", 320);
+  drawRh48("fig-rh48", 700);
+  drawRhOverlay("fig-rh-overlay", 380);
 
   const C = Math.sqrt(50);
   drawPerigalB("fig-peri-sq-b", SQ_PIECES, 7, 7, "7a × 7a（厳密）", 360);
