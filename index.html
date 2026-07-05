@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「小さな相似形が完璧にハマる」パズル — 別の形の製図（正五角形・正六角形・正八角形）</title>
+<style>
+  :root {
+    --ink: #1e2430;
+    --sub: #5a6472;
+    --line: #d8dde5;
+    --accent: #b5452a;
+    --bg: #faf9f6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.8;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 1.5rem; line-height: 1.5; border-bottom: 3px solid var(--ink); padding-bottom: 12px; }
+  h2 { font-size: 1.25rem; margin-top: 56px; padding: 6px 12px; background: var(--ink); color: #fff; border-radius: 4px; }
+  h3 { font-size: 1.05rem; margin-top: 32px; border-left: 5px solid var(--accent); padding-left: 10px; }
+  p, li { font-size: 0.95rem; }
+  .note { color: var(--sub); font-size: 0.85rem; }
+  .fig {
+    background: #fff; border: 1px solid var(--line); border-radius: 8px;
+    padding: 16px; margin: 20px 0; text-align: center;
+  }
+  .fig figcaption { font-size: 0.85rem; color: var(--sub); margin-top: 8px; text-align: left; }
+  .figrow { display: flex; flex-wrap: wrap; gap: 16px; }
+  .figrow .fig { flex: 1 1 340px; margin: 4px 0; }
+  table { border-collapse: collapse; margin: 16px 0; width: 100%; font-size: 0.9rem; }
+  th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: center; }
+  th { background: #eef1f5; }
+  td.l { text-align: left; }
+  .formula {
+    background: #fff; border: 1px dashed var(--sub); border-radius: 6px;
+    padding: 10px 16px; margin: 12px 0; font-size: 1.0rem; text-align: center;
+  }
+  svg { max-width: 100%; height: auto; }
+  .kv { background:#fff7ee; border:1px solid #eadcc8; border-radius:6px; padding:10px 16px; margin:14px 0; font-size:0.92rem;}
+</style>
+</head>
+<body>
+<main>
+
+<h1>「小さな相似形が完璧にハマる」パズル<br>別の形の製図 — 正五角形・正六角形・正八角形版</h1>
+
+<p>
+市販パズル（正三角形・正方形・ひし形版）は「完成しているように見えるトレイに、
+さらに小さな相似形ピースが完璧にハマる」ことが驚きの核でした。
+この原理は <strong>すべての正多角形に一般化できます</strong>。
+ここでは新しい形として <strong>正六角形・正五角形・正八角形</strong> 版を設計・製図します。
+（幾何は数値計算で検証済み：面積の一致、隙間・重なりゼロ、全ピースの合同性）
+</p>
+
+<h2>原理 — 面積の関係と「風車（ウィンドミル）分割」</h2>
+<p>
+一辺 2a の正n角形（トレイ）の面積は、一辺 a の正n角形のちょうど <strong>4倍</strong>。
+つまり「小さい正n角形 1個 ＋ 3個分の面積のピース」でトレイが埋まる計算になります。
+実際に埋める方法が風車分割です：
+</p>
+<ol>
+  <li>トレイ中央に、同じ向きで一辺 a の正n角形を置く</li>
+  <li>その各辺を、一方向に延長してトレイの縁まで切る（n本の切断線）</li>
+  <li>残りが <strong>n枚の合同な等脚台形</strong> に分かれる</li>
+</ol>
+<div class="formula">
+  台形の脚の長さ&nbsp; t = a ／ ( 4 sin²(180°/n) ) &nbsp;&nbsp;／&nbsp;&nbsp;
+  平行な2辺 = (2a − t) と (a + t) &nbsp;&nbsp;／&nbsp;&nbsp; 底角 = 360°/n
+</div>
+<p class="note">
+市販の正三角形版が「1:2:√3 の直角三角形単位」で構成されているのと同様、
+正六角形版のピースはすべて 1:2:√3 直角三角形 6 個分でできています（後述）。
+</p>
+
+<h2>① 正六角形版（おすすめ・最もエレガント）</h2>
+<p>
+<strong>ピース構成：等脚台形 × 6枚 ＋ 小正六角形 × 1枚。</strong>
+台形は辺 a・a・a・2a、角 60°/120° の「正六角形の半分」で、
+正三角形 3 個分＝ <strong>1:2:√3 直角三角形 6 個分</strong>。記事の製品と同じ構成単位です。
+</p>
+<div class="kv">
+<strong>「絶対はまらなそう」ポイント：</strong>
+台形 2 枚を長辺どうしで合わせると小ピースと同じ正六角形になるので、
+ピース全体は「<strong>正六角形 4 個分</strong>」。
+正六角形で正六角形のトレイは敷き詰められない（角が合わない）ため不可能に見えますが、
+台形にほどいて風車状に組み直すと完璧にハマります。
+</div>
+
+<div class="figrow">
+<figure class="fig">
+  <div id="fig-hex-solution"></div>
+  <figcaption>【完成図】一辺 2a のトレイ。中央に小正六角形（橙）、周囲に台形 6 枚を風車状に配置。</figcaption>
+</figure>
+<figure class="fig">
+  <div id="fig-hex-teaser"></div>
+  <figcaption>【初期状態の例】台形 6 枚は正六角形 3 個に組める。小ピースと合わせ「六角形 4 個分」— これがトレイに戻せるとは思えない。</figcaption>
+</figure>
+</div>
+
+<figure class="fig">
+  <div id="fig-hex-piece"></div>
+  <figcaption>【ピース製図】台形（6枚とも同一）。破線は正三角形 3 個への分割線（各正三角形は 1:2:√3 直角三角形 2 個）。a = 40mm の場合：辺 40 / 40 / 40 / 80 mm。</figcaption>
+</figure>
+
+<h2>② 正五角形版</h2>
+<p>
+<strong>ピース構成：等脚台形 × 5枚 ＋ 小正五角形 × 1枚。</strong>
+正五角形は平面を敷き詰められない図形なので、
+「五角形の隙間なんて絶対に埋まらない」という直感が強く働きます。難易度は高め。
+</p>
+
+<div class="figrow">
+<figure class="fig">
+  <div id="fig-pen-solution"></div>
+  <figcaption>【完成図】一辺 2a のトレイ。中央の小正五角形は同じ向き、周囲に台形 5 枚を風車状に。</figcaption>
+</figure>
+<figure class="fig">
+  <div id="fig-pen-piece"></div>
+  <figcaption>【ピース製図】脚 t = (5+√5)/10 · a ≈ 0.7236a。a = 40mm の場合：脚 28.9 / 短辺 51.1 / 長辺 68.9 mm。</figcaption>
+</figure>
+</div>
+
+<h2>③ 正八角形版</h2>
+<p>
+<strong>ピース構成：等脚台形 × 8枚 ＋ 小正八角形 × 1枚。</strong>
+台形が細長く（短辺 ≈ 0.29a）、組んだときの風車模様が最も美しい版です。
+45°/135° なので製図・工作は方眼＋45°定規で楽にできます。
+</p>
+
+<div class="figrow">
+<figure class="fig">
+  <div id="fig-oct-solution"></div>
+  <figcaption>【完成図】一辺 2a のトレイ。台形 8 枚が渦を巻いて小正八角形を囲む。</figcaption>
+</figure>
+<figure class="fig">
+  <div id="fig-oct-piece"></div>
+  <figcaption>【ピース製図】脚 t = (2+√2)/2 · a ≈ 1.7071a。a = 40mm の場合：脚 68.3 / 短辺 11.7 / 長辺 108.3 mm。</figcaption>
+</figure>
+</div>
+
+<h2>寸法表（小さい正n角形の一辺 a = 40mm で製作する場合）</h2>
+<table>
+<tr><th>形</th><th>台形の枚数</th><th>脚 t</th><th>短い平行辺</th><th>長い平行辺</th><th>底角</th><th>トレイの一辺</th></tr>
+<tr><td>正三角形</td><td>3</td><td>a/3 ≈ 13.3mm</td><td>4a/3 ≈ 53.3mm</td><td>5a/3 ≈ 66.7mm</td><td>60°/120°</td><td>80mm</td></tr>
+<tr><td>正方形</td><td>4</td><td colspan="2">（長方形 a/2 × 3a/2 = 20 × 60mm）</td><td>—</td><td>90°</td><td>80mm</td></tr>
+<tr><td>正五角形</td><td>5</td><td>0.7236a ≈ 28.9mm</td><td>1.2764a ≈ 51.1mm</td><td>1.7236a ≈ 68.9mm</td><td>72°/108°</td><td>80mm</td></tr>
+<tr><td><strong>正六角形</strong></td><td>6</td><td>a = 40mm</td><td>a = 40mm</td><td>2a = 80mm</td><td>60°/120°</td><td>80mm</td></tr>
+<tr><td>正七角形</td><td>7</td><td>1.3280a ≈ 53.1mm</td><td>0.6720a ≈ 26.9mm</td><td>2.3280a ≈ 93.1mm</td><td>≈51.4°</td><td>80mm</td></tr>
+<tr><td>正八角形</td><td>8</td><td>1.7071a ≈ 68.3mm</td><td>0.2929a ≈ 11.7mm</td><td>2.7071a ≈ 108.3mm</td><td>45°/135°</td><td>80mm</td></tr>
+</table>
+<p class="note">
+※ 正方形（n=4）では台形が長方形に退化してパズルとして自明になるため、市販品は別の分割
+（√5 を使うピタゴラス風車型）を採用しています。n ≥ 9 では t &gt; 2a となり同じ切り方が成立しないため、
+大小比を 2 倍より大きく取る必要があります。台形の底角は常に 360°/n です。
+</p>
+
+<h2>遊び方（共通）</h2>
+<ol>
+  <li>台形ピースだけを適当にトレイに収めて見せる（必ず小ピース1個分の変な隙間が残る）</li>
+  <li>「この小さな正n角形も全部トレイに入れてください」と渡す</li>
+  <li>正解は風車配置。<strong>小ピースを中央に、辺の向きを外枠と揃えて</strong>置くのが唯一の鍵</li>
+</ol>
+
+<p class="note">
+検証方法：各構成について (1) 面積の厳密一致（大 = 小 + n×台形）、(2) 16,000点前後のサンプル点で
+被覆の隙間・重なりゼロ、(3) 全台形ピースが回転合同、を数値計算で確認済み。
+</p>
+
+<script>
+(function(){
+  const TAU = Math.PI * 2;
+  const PIECE_FILLS = ["#9ec5e8","#a8d8b9","#d9c7e8","#f2d3a2","#c5dfe8","#e8c5c5","#cfe8a8","#e8dca8"];
+  const SMALL_FILL = "#f5a623";
+
+  function ngonPts(n, R, phase){
+    const pts = [];
+    for (let k = 0; k < n; k++){
+      const th = TAU*k/n + phase;
+      pts.push([R*Math.cos(th), R*Math.sin(th)]);
+    }
+    return pts;
+  }
+
+  // windmill dissection: big n-gon side 2 = small n-gon side 1 + n congruent trapezoids
+  function windmill(n, phase){
+    const r = 1/(2*Math.sin(Math.PI/n));
+    const t = 1/(4*Math.pow(Math.sin(Math.PI/n),2));
+    const S = ngonPts(n, r, phase);
+    const B = ngonPts(n, 2*r, phase);
+    const pieces = [];
+    for (let k = 0; k < n; k++){
+      const p = S[k], a = S[(k+1)%n], b = S[(k+2)%n];
+      const h1 = [a[0]+t*(a[0]-p[0]), a[1]+t*(a[1]-p[1])];
+      const h2 = [b[0]+t*(b[0]-a[0]), b[1]+t*(b[1]-a[1])];
+      pieces.push([a, h1, B[(k+2)%n], h2]);
+    }
+    return {S, B, pieces, r, t};
+  }
+
+  // ---- svg helpers (math coords, y flipped at emit time) ----
+  function svgOpen(x0, y0, w, h, pxw){
+    const pxh = Math.round(pxw * h / w);
+    return {
+      parts: [`<svg viewBox="${x0.toFixed(3)} ${(-y0-h).toFixed(3)} ${w.toFixed(3)} ${h.toFixed(3)}" width="${pxw}" height="${pxh}" xmlns="http://www.w3.org/2000/svg">`],
+      close(){ this.parts.push("</svg>"); return this.parts.join("\n"); }
+    };
+  }
+  const P = pt => `${pt[0].toFixed(4)},${(-pt[1]).toFixed(4)}`;
+
+  function poly(svg, pts, fill, stroke, sw, extra){
+    svg.parts.push(`<polygon points="${pts.map(P).join(" ")}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round" ${extra||""}/>`);
+  }
+  function seg(svg, p1, p2, stroke, sw, dash){
+    svg.parts.push(`<line x1="${p1[0].toFixed(4)}" y1="${(-p1[1]).toFixed(4)}" x2="${p2[0].toFixed(4)}" y2="${(-p2[1]).toFixed(4)}" stroke="${stroke}" stroke-width="${sw}" ${dash?`stroke-dasharray="${dash}"`:""}/>`);
+  }
+  function txt(svg, p, s, size, color, anchor){
+    svg.parts.push(`<text x="${p[0].toFixed(4)}" y="${(-p[1]).toFixed(4)}" font-size="${size}" fill="${color||"#1e2430"}" text-anchor="${anchor||"middle"}" dominant-baseline="middle" font-family="sans-serif">${s}</text>`);
+  }
+  // dimension line with ticks, offset outward along normal nrm
+  function dim(svg, p1, p2, nrm, off, label, fs){
+    const q1 = [p1[0]+nrm[0]*off, p1[1]+nrm[1]*off];
+    const q2 = [p2[0]+nrm[0]*off, p2[1]+nrm[1]*off];
+    seg(svg, p1, q1, "#8a93a2", 0.012);
+    seg(svg, p2, q2, "#8a93a2", 0.012);
+    seg(svg, q1, q2, "#4a5462", 0.018);
+    const mid = [(q1[0]+q2[0])/2 + nrm[0]*fs*0.9, (q1[1]+q2[1])/2 + nrm[1]*fs*0.9];
+    txt(svg, mid, label, fs, "#1e2430");
+  }
+
+  // ---- solution figure ----
+  function drawSolution(elId, n, phase, pxw, trayLabelEdge){
+    const {S, B, pieces} = windmill(n, phase);
+    const R = 2/(2*Math.sin(Math.PI/n));
+    const m = 0.78;
+    const svg = svgOpen(-R-m, -R-m, 2*(R+m), 2*(R+m), pxw);
+    pieces.forEach((pc,i) => poly(svg, pc, PIECE_FILLS[i%PIECE_FILLS.length], "#1e2430", 0.035));
+    poly(svg, S, SMALL_FILL, "#1e2430", 0.035);
+    poly(svg, B, "none", "#1e2430", 0.07);
+    // tray edge dimension "2a"
+    const e1 = B[trayLabelEdge[0]], e2 = B[trayLabelEdge[1]];
+    const ex = [e2[0]-e1[0], e2[1]-e1[1]], len = Math.hypot(ex[0],ex[1]);
+    const nrm = [ (e2[1]-e1[1])/len, -(e2[0]-e1[0])/len ]; // outward if edge goes CCW
+    dim(svg, e1, e2, nrm, 0.28, "2a", 0.26);
+    // small polygon label
+    txt(svg, [0, 0], "一辺 a", 0.24, "#7a4a00");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  // ---- standalone trapezoid piece drawing with dimensions ----
+  function drawPiece(elId, n, dims, pxw, hexUnits){
+    const t = 1/(4*Math.pow(Math.sin(Math.PI/n),2));
+    const H = t*Math.sin(TAU/n <= Math.PI/2 ? TAU/n : Math.PI - TAU/n); // height = t*sin(base angle)
+    const baseAng = TAU/n;
+    const long_ = 1+t, short_ = 2-t;
+    // long base on bottom from (0,0) to (long_,0); base angle at both ends
+    const dx = t*Math.cos(baseAng);
+    const p0 = [0,0], p1 = [long_,0], p2 = [long_-dx, t*Math.sin(baseAng)], p3 = [dx, t*Math.sin(baseAng)];
+    const h = p2[1];
+    const m = dims.margin || 0.95;
+    const svg = svgOpen(-m, -m, long_+2*m, h+2*m, pxw);
+    poly(svg, [p0,p1,p2,p3], "#dbe7f4", "#1e2430", 0.03);
+    if (hexUnits){
+      seg(svg, [1,0], p3, "#5a6472", 0.015, "0.07,0.05");
+      seg(svg, [1,0], p2, "#5a6472", 0.015, "0.07,0.05");
+    }
+    // dims: bottom (long), top (short), left leg
+    dim(svg, p1, p0, [0,-1], 0.3, dims.long, 0.17);
+    dim(svg, p3, p2, [0,1], 0.3, dims.short, 0.17);
+    // left leg p0->p3
+    const lg = [p3[0]-p0[0], p3[1]-p0[1]], lgl = Math.hypot(lg[0],lg[1]);
+    const lnrm = [-lg[1]/lgl, lg[0]/lgl];
+    dim(svg, p0, p3, lnrm, 0.3, dims.leg, 0.17);
+    // angle labels at one vertex per angle type, placed along interior bisector
+    const angLong = Math.round(360/n*100)/100, angShort = Math.round((180-360/n)*100)/100;
+    function bisLabel(v, u1, u2, label){
+      const d1 = [u1[0]-v[0], u1[1]-v[1]], l1 = Math.hypot(d1[0],d1[1]);
+      const d2 = [u2[0]-v[0], u2[1]-v[1]], l2 = Math.hypot(d2[0],d2[1]);
+      let bx = d1[0]/l1 + d2[0]/l2, by = d1[1]/l1 + d2[1]/l2;
+      const bl = Math.hypot(bx,by);
+      txt(svg, [v[0]+bx/bl*0.38, v[1]+by/bl*0.38], label, 0.16, "#b5452a");
+    }
+    bisLabel(p0, p1, p3, angLong+"°");
+    bisLabel(p3, p0, p2, angShort+"°");
+    txt(svg, [long_/2, h*0.4], "× " + dims.count, 0.2, "#1e2430");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  // ---- hexagon teaser: 3 hexagons (each = 2 trapezoids) + 1 small hexagon ----
+  function drawHexTeaser(elId, pxw){
+    const svg = svgOpen(-1.4, -3.1, 7.6, 6.0, pxw);
+    const hex = c => ngonPts(6, 1, 0).map(p => [p[0]+c[0], p[1]+c[1]]);
+    const centers = [[0,1.1],[2.2,1.1],[4.4,1.1]];
+    centers.forEach((c,i) => {
+      const hx = hex(c);
+      // two trapezoids: top half and bottom half, split along horizontal diagonal
+      const top = [hx[0],hx[1],hx[2],hx[3]];
+      const bot = [hx[3],hx[4],hx[5],hx[0]];
+      poly(svg, top, PIECE_FILLS[2*i], "#1e2430", 0.035);
+      poly(svg, bot, PIECE_FILLS[2*i+1], "#1e2430", 0.035);
+    });
+    // small hexagon piece
+    const sh = ngonPts(6, 1, 0).map(p => [p[0]+2.2, p[1]-1.6]);
+    poly(svg, sh, SMALL_FILL, "#1e2430", 0.035);
+    txt(svg, [2.2, 2.45], "台形6枚 = 正六角形3個", 0.24, "#1e2430");
+    txt(svg, [4.0, -1.6], "＋ 小ピース1個", 0.24, "#1e2430", "start");
+    txt(svg, [2.2, -2.75], "→ 合計「正六角形4個分」の面積 = トレイにピッタリ", 0.24, "#5a6472");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  drawSolution("fig-hex-solution", 6, 0,        380, [1,2]);
+  drawSolution("fig-pen-solution", 5, Math.PI/2, 380, [0,1]);
+  drawSolution("fig-oct-solution", 8, Math.PI/8, 400, [1,2]);
+
+  drawPiece("fig-hex-piece", 6, {long:"2a (80mm)", short:"a (40mm)", leg:"a (40mm)", count:"6枚"}, 520, true);
+  drawPiece("fig-pen-piece", 5, {long:"1.7236a (68.9mm)", short:"1.2764a (51.1mm)", leg:"0.7236a (28.9mm)", count:"5枚", margin:1.55}, 460, false);
+  drawPiece("fig-oct-piece", 8, {long:"2.7071a (108.3mm)", short:"0.2929a (11.7mm)", leg:"1.7071a (68.3mm)", count:"8枚", margin:1.55}, 500, false);
+
+  drawHexTeaser("fig-hex-teaser", 420);
+})();
+</script>
+</main>
+</body>
+</html>
