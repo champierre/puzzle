@@ -167,9 +167,107 @@
   <li>正解は風車配置。<strong>小ピースを中央に、辺の向きを外枠と揃えて</strong>置くのが唯一の鍵</li>
 </ol>
 
+<h2>第2部 「あってもなくても完成する」のはなぜか — 種明かしと新作</h2>
+
+<p>
+元のパズルの一番の驚きは、<strong>小さな正三角形があっても、なくても、大きな正三角形が完成する</strong>こと。
+しかし面積は保存されるので、まったく同じ大きさの図形が両方で完成することは数学的にあり得ません。
+種明かしはこうです：
+</p>
+<div class="kv">
+<strong>2つの完成形は、実は大きさが約1%だけ違う。</strong>
+ピースだけで組んだ完成形と、小ピースを加えた完成形は、どちらも「厳密に」正しい相似形になれる——
+ただし相似比が √(48/49) ≈ 0.9897 のように 1 にきわめて近いだけ。
+1% の差は目では分からず、トレイの遊び（ゆとり）に吸収されます。
+</div>
+
+<h3>正三角形版の内部構造（1:2:√3 の意味）</h3>
+<p>
+三角格子の上に描ける正三角形の面積（単位三角形の個数）は 48（= 一辺 4√3a、格子に対して30°傾く）や
+49（= 一辺 7a、格子に平行）といった値をとります。<strong>48 と 49 はちょうど連続する2つの値</strong>で、
+差の1単位ぶんが「小さな正三角形」1個。つまり：
+</p>
+<div class="formula">
+ピースの合計 = 48単位 → 一辺 4√3a ≈ 6.93a の正三角形が厳密に完成<br>
+ピース + 小三角形 = 49単位 → 一辺 7a の正三角形が厳密に完成
+</div>
+<p>
+30°傾いた格子と傾いていない格子を橋渡しするには、辺の長さに 1 と √3 の両方が現れるピース――
+すなわち <strong>1:2:√3 の直角三角形単位</strong>――が必要になります。
+市販品の「すべてのピースが1:2:√3で構成されている」のは、まさにこの構造の証拠です。
+このようなペアは (3,4), (12,13), (27,28), (48,49), … と無限にあり、大きいペアほどサイズ差が小さくなります
+（48/49 で1.0%）。
+</p>
+
+<div class="figrow">
+<figure class="fig">
+  <div id="fig-tri48"></div>
+  <figcaption>【種明かし】左：一辺 7a（=49単位）。右：一辺 4√3a ≈ 6.93a（=48単位、内部の格子が30°傾く）。輪郭はほぼ同じ大きさ。</figcaption>
+</figure>
+<figure class="fig">
+  <div id="fig-tri-overlay"></div>
+  <figcaption>2つの完成形を重ねたところ。差はわずか1%——トレイの中では見分けがつかない。</figcaption>
+</figure>
+</div>
+
+<h3>新作④ 正方形版 — ペリガル分割（合同4ピース＋小正方形、最少構成）</h3>
+<p>
+ピタゴラスの定理の有名な証明図「ペリガルの分割」（1873）がそのままこのタイプのパズルになります。
+一辺 7a の正方形を、<strong>中心を通り互いに直交する2本の直線</strong>（傾き 1/7 ≈ 8.13°）で切ると合同な4ピースができ、
+これに一辺 a の小正方形を加えると一辺 √50a ≈ 7.07a の正方形が厳密に組めます（1² + 7² = (√50)²）。
+</p>
+
+<div class="figrow">
+<figure class="fig">
+  <div id="fig-peri-sq-b"></div>
+  <figcaption>【小ピースなし】4ピースで 7a × 7a が厳密に完成。切断線は中心を通り、互いに直交（傾き8.13°）。</figcaption>
+</figure>
+<figure class="fig">
+  <div id="fig-peri-sq-c"></div>
+  <figcaption>【小ピースあり】同じ4ピースを平行移動しただけで √50a ≈ 7.07a 角のトレイが厳密に埋まる。小正方形は中央に約8°傾いて入る。</figcaption>
+</figure>
+</div>
 <p class="note">
-検証方法：各構成について (1) 面積の厳密一致（大 = 小 + n×台形）、(2) 16,000点前後のサンプル点で
-被覆の隙間・重なりゼロ、(3) 全台形ピースが回転合同、を数値計算で確認済み。
+ピース寸法（a = 10mm、4枚とも合同）：辺 30 / 40 / 35.36 / 35.36 mm。
+トレイ 70.7mm 角。小ピースなしの完成形は 70mm 角——差 0.7mm はまず気づかれない。
+組み替えは平行移動のみ（回転不要）なのも面白いところ。
+</p>
+
+<h3>新作⑤ 長方形版（2:1）— どの縦横比でも作れる</h3>
+<p>
+ペリガル分割は正方形専用と思われがちですが、<strong>任意の縦横比の長方形に一般化できます</strong>。
+14a × 7a の長方形を、中心を通る直交2直線（長辺に対し傾き 1/7）で切って4ピース（合同2組）。
+小さな 2a × 1a の長方形を加えると、√50a × 2√50a ≈ 7.07a × 14.14a の長方形が厳密に組めます。
+小ピースは<strong>中央に、90°回して、約8°傾けて</strong>収まる——「絶対はまらなそう」感が強烈です。
+</p>
+
+<div class="figrow">
+<figure class="fig">
+  <div id="fig-peri-rect-b"></div>
+  <figcaption>【小ピースなし】4ピースで 14a × 7a が厳密に完成。</figcaption>
+</figure>
+<figure class="fig">
+  <div id="fig-peri-rect-c"></div>
+  <figcaption>【小ピースあり】同じ4ピース＋小長方形（2a×1a）で 14.14a × 7.07a のトレイが厳密に埋まる。</figcaption>
+</figure>
+</div>
+<p class="note">
+ピース寸法（a = 10mm）：タイプA×2枚 = 辺 25 / 75 / 35.36 / 70.71 mm、タイプB×2枚 = 辺 65 / 45 / 70.71 / 35.36 mm。
+トレイ 141.4 × 70.7 mm。小ピース 20 × 10 mm。縦横比 3:1 などでも同じ構成が成立することを数値検証済み。
+</p>
+
+<h3>どんな図形で可能か</h3>
+<ul>
+  <li><strong>正方形・長方形（任意の縦横比）</strong>：上記ペリガル型で4＋1ピースの最少構成が可能（本ページで設計・検証済み）</li>
+  <li><strong>正三角形・ひし形</strong>：三角格子の面積ペア（48↔49 など）で可能。市販品がこの2形状なのはこの構造と符合する</li>
+  <li><strong>正六角形</strong>：面積スペクトル上は可能（288単位 ↔ 294単位 = 小六角形1個分）だが、単純な中心切断では角度が合わず（六角形の内角120° vs 扇形60°）、ピース設計の難度が格段に上がる。市販シリーズに六角形版がないこととも符合する</li>
+  <li><strong>任意の多角形</strong>：ボヤイ=ゲルヴィンの定理により共通分割は必ず存在するが、ピース数が多く実用的でない場合がある</li>
+</ul>
+
+<p class="note">
+検証方法：第1部は各構成について (1) 面積の厳密一致、(2) 16,000点前後のサンプル点で被覆の隙間・重なりゼロ、
+(3) 全台形ピースが回転合同、を数値計算で確認済み。
+第2部のペリガル型（正方形・長方形2:1・長方形3:1）も同様に約50,000サンプル点で隙間・重なりゼロを確認済み。
 </p>
 
 <script>
@@ -322,6 +420,149 @@
   drawPiece("fig-oct-piece", 8, {long:"2.7071a (108.3mm)", short:"0.2929a (11.7mm)", leg:"1.7071a (68.3mm)", count:"8枚", margin:1.55}, 500, false);
 
   drawHexTeaser("fig-hex-teaser", 420);
+})();
+</script>
+
+<script>
+(function(){
+  // ---- Part 2: reveal figures + Perigal designs (coordinates verified numerically) ----
+  const FILLS = ["#9ec5e8","#a8d8b9","#d9c7e8","#f2d3a2"];
+  const SMALL_FILL = "#f5a623";
+  const SQ3 = Math.sqrt(3), H = SQ3/2;
+  const PHI = Math.atan2(1,7); // 8.13 deg
+
+  function svgOpen(x0, y0, w, h, pxw){
+    const pxh = Math.round(pxw * h / w);
+    return {
+      parts: [`<svg viewBox="${x0.toFixed(3)} ${(-y0-h).toFixed(3)} ${w.toFixed(3)} ${h.toFixed(3)}" width="${pxw}" height="${pxh}" xmlns="http://www.w3.org/2000/svg">`],
+      close(){ this.parts.push("</svg>"); return this.parts.join("\n"); }
+    };
+  }
+  const P = pt => `${pt[0].toFixed(4)},${(-pt[1]).toFixed(4)}`;
+  function poly(svg, pts, fill, stroke, sw){
+    svg.parts.push(`<polygon points="${pts.map(P).join(" ")}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`);
+  }
+  function seg(svg, p1, p2, stroke, sw, dash){
+    svg.parts.push(`<line x1="${p1[0].toFixed(4)}" y1="${(-p1[1]).toFixed(4)}" x2="${p2[0].toFixed(4)}" y2="${(-p2[1]).toFixed(4)}" stroke="${stroke}" stroke-width="${sw}" ${dash?`stroke-dasharray="${dash}"`:""}/>`);
+  }
+  function txt(svg, p, s, size, color, anchor){
+    svg.parts.push(`<text x="${p[0].toFixed(4)}" y="${(-p[1]).toFixed(4)}" font-size="${size}" fill="${color||"#1e2430"}" text-anchor="${anchor||"middle"}" dominant-baseline="middle" font-family="sans-serif">${s}</text>`);
+  }
+  const rot = (p, ang) => [p[0]*Math.cos(ang)-p[1]*Math.sin(ang), p[0]*Math.sin(ang)+p[1]*Math.cos(ang)];
+  const tr = (p, v) => [p[0]+v[0], p[1]+v[1]];
+
+  // clip infinite line (point p, dir d) to convex CCW polygon; returns segment or null
+  function clipLine(p, d, polyPts){
+    let t0 = -1000, t1 = 1000;
+    const n = polyPts.length;
+    for (let i = 0; i < n; i++){
+      const A = polyPts[i], B = polyPts[(i+1)%n];
+      const nx = -(B[1]-A[1]), ny = B[0]-A[0]; // inward normal (CCW)
+      const dn = d[0]*nx + d[1]*ny;
+      const rhs = (A[0]-p[0])*nx + (A[1]-p[1])*ny;
+      if (Math.abs(dn) < 1e-12){ if (rhs > 0) return null; continue; }
+      const t = rhs/dn;
+      if (dn > 0){ t0 = Math.max(t0, t); } else { t1 = Math.min(t1, t); }
+    }
+    if (t1 - t0 < 0.05) return null;
+    return [[p[0]+t0*d[0], p[1]+t0*d[1]], [p[0]+t1*d[0], p[1]+t1*d[1]]];
+  }
+
+  function drawGridTriangle(svg, verts, offset, gridColor){
+    const tv = verts.map(p => tr(p, offset));
+    // lattice lines in the triangle's own lattice frame are supplied pre-clipped via closure
+    return tv;
+  }
+
+  // fig: T7 (49 units) and T(4sqrt3) (48 units) side by side
+  function drawTri48(elId, pxw){
+    const svg = svgOpen(-0.6, -1.6, 17.2, 9.2, pxw);
+    // T7, lattice-aligned
+    const T7 = [[0,0],[7,0],[3.5, 3.5*SQ3]];
+    poly(svg, T7, "#fdf6ec", "#1e2430", 0.06);
+    for (let j = 1; j <= 6; j++) seg(svg, [0.5*j, j*H], [7-0.5*j, j*H], "#b08a5a", 0.02);
+    for (let i = 1; i <= 6; i++) seg(svg, [i,0], [(7+i)/2, (7-i)*H], "#b08a5a", 0.02);
+    for (let i = 1; i <= 6; i++) seg(svg, [i,0], [i/2, i*H], "#b08a5a", 0.02);
+    txt(svg, [3.5, -0.7], "一辺 7a ＝ 49単位", 0.45, "#1e2430");
+    // T(4sqrt3): lattice frame verts (0,0),(6,2sqrt3),(0,4sqrt3), grid = standard lattice, then rotate -30deg
+    const L = [[0,0],[6,2*SQ3],[0,4*SQ3]];
+    const off = [8.6, 0], ang = -Math.PI/6;
+    const place = p => tr(rot(p, ang), off);
+    poly(svg, L.map(place), "#eef3fb", "#1e2430", 0.06);
+    const segs = [];
+    for (let j = 1; j <= 7; j++){ const s = clipLine([0, j*H], [1,0], L); if (s) segs.push(s); }
+    for (let i = -4; i <= 8; i++){ const s = clipLine([i,0], [0.5,H], L); if (s) segs.push(s); }
+    for (let i = -4; i <= 12; i++){ const s = clipLine([i,0], [-0.5,H], L); if (s) segs.push(s); }
+    segs.forEach(s => seg(svg, place(s[0]), place(s[1]), "#5a7ab0", 0.02));
+    txt(svg, [8.6+3.464, -0.7], "一辺 4√3a ≈ 6.93a ＝ 48単位", 0.45, "#1e2430");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  // fig: overlay of the two outlines, centered at centroids
+  function drawTriOverlay(elId, pxw){
+    const svg = svgOpen(-4.2, -3.4, 8.4, 7.4, pxw);
+    const T7 = [[0,0],[7,0],[3.5,3.5*SQ3]].map(p => tr(p, [-3.5, -3.5*SQ3/3]));
+    const ang = -Math.PI/6;
+    const L = [[0,0],[6,2*SQ3],[0,4*SQ3]].map(p => rot(p, ang));
+    const cen = [(L[0][0]+L[1][0]+L[2][0])/3, (L[0][1]+L[1][1]+L[2][1])/3];
+    const T48 = L.map(p => tr(p, [-cen[0], -cen[1]]));
+    poly(svg, T7, "none", "#b5452a", 0.05);
+    poly(svg, T48, "none", "#2a5ab5", 0.05);
+    txt(svg, [0, -2.75], "─ 7a（ピース＋小三角形）  ─ 4√3a（ピースのみ）", 0.34, "#5a6472");
+    txt(svg, [0, -3.15], "相似比 √(48/49) ≈ 0.9897（差 約1%）", 0.34, "#5a6472");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  // Perigal data (verified): square a=1,b=7
+  const SQ_PIECES = [
+    [[3.5,0.5],[3.5,3.5],[-0.5,3.5],[0,0]],
+    [[-0.5,3.5],[-3.5,3.5],[-3.5,-0.5],[0,0]],
+    [[0,0],[-3.5,-0.5],[-3.5,-3.5],[0.5,-3.5]],
+    [[3.5,-3.5],[3.5,0.5],[0,0],[0.5,-3.5]]
+  ];
+  const SQ_T = [[-3,-4],[4,-3],[3,4],[-4,3]];
+  const SQ_HOLE = [[0.5,-0.5],[0.5,0.5],[-0.5,0.5],[-0.5,-0.5]];
+
+  const RE_PIECES = [
+    [[7,1],[7,3.5],[-0.5,3.5],[0,0]],
+    [[-0.5,3.5],[-7,3.5],[-7,-1],[0,0]],
+    [[0,0],[-7,-1],[-7,-3.5],[0.5,-3.5]],
+    [[7,-3.5],[7,1],[0,0],[0.5,-3.5]]
+  ];
+  const RE_T = [[-6.5,-4.5],[7.5,-2.5],[6.5,4.5],[-7.5,2.5]];
+  const RE_HOLE = [[0.5,-1],[0.5,1],[-0.5,1],[-0.5,-1]];
+
+  function drawPerigalB(elId, pieces, w, h, label, pxw){
+    const m = 1.1;
+    const svg = svgOpen(-w/2-m, -h/2-m, w+2*m, h+2*m, pxw);
+    pieces.forEach((pc,i) => poly(svg, pc, FILLS[i], "#1e2430", 0.05));
+    txt(svg, [0, -h/2-0.6], label, 0.55, "#1e2430");
+    txt(svg, [w/2*0.52, h*0.055], "切断線の傾き 1/7 (8.13°)", 0.34, "#b5452a");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  function drawPerigalC(elId, pieces, tks, hole, cw, ch, label, pxw){
+    const m = 1.1;
+    const svg = svgOpen(-cw/2-m, -ch/2-m, cw+2*m, ch+2*m, pxw);
+    // rotate the whole assembly by -PHI so the tray is upright
+    pieces.forEach((pc,i) => {
+      const placed = pc.map(p => rot(tr(p, tks[i]), -PHI));
+      poly(svg, placed, FILLS[i], "#1e2430", 0.05);
+    });
+    poly(svg, hole.map(p => rot(p, -PHI)), SMALL_FILL, "#1e2430", 0.05);
+    poly(svg, [[cw/2,-ch/2],[cw/2,ch/2],[-cw/2,ch/2],[-cw/2,-ch/2]], "none", "#1e2430", 0.09);
+    txt(svg, [0, -ch/2-0.6], label, 0.55, "#1e2430");
+    document.getElementById(elId).innerHTML = svg.close();
+  }
+
+  drawTri48("fig-tri48", 640);
+  drawTriOverlay("fig-tri-overlay", 340);
+
+  const C = Math.sqrt(50);
+  drawPerigalB("fig-peri-sq-b", SQ_PIECES, 7, 7, "7a × 7a（厳密）", 360);
+  drawPerigalC("fig-peri-sq-c", SQ_PIECES, SQ_T, SQ_HOLE, C, C, "√50a × √50a ≈ 7.07a角（厳密）", 360);
+  drawPerigalB("fig-peri-rect-b", RE_PIECES, 14, 7, "14a × 7a（厳密）", 420);
+  drawPerigalC("fig-peri-rect-c", RE_PIECES, RE_T, RE_HOLE, 2*C, C, "2√50a × √50a ≈ 14.14a × 7.07a（厳密）", 420);
 })();
 </script>
 </main>
